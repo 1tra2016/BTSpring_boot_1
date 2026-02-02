@@ -1,0 +1,43 @@
+package com.example.product_management.service;
+
+import com.example.product_management.model.Product;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class ProductService {
+
+    private List<Product> products = new ArrayList<>();
+
+    public ProductService() {
+        products.add(new Product(1, "Laptop", 1500));
+        products.add(new Product(2, "Chuột", 20));
+        products.add(new Product(3, "Bàn phím", 45));
+    }
+
+    public List<Product> getAllProducts() {
+        return products;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
+    public boolean updateProduct(int id, Product newProduct) {
+        for (Product p : products) {
+            if (p.getId() == id) {
+                p.setName(newProduct.getName());
+                p.setPrice(newProduct.getPrice());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteProduct(int id) {
+        return products.removeIf(p -> p.getId() == id);
+
+    }
+}
